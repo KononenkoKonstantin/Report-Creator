@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ReportCreator.WebUI.Models.CategoryViewModel>
+
+@{
+    ViewBag.Title = "Categories";
+}
+<br />
+<br />
+<h3>Categories</h3>
+
+<p>
+    @Html.ActionLink("Create new category", "Create", "", new { @class = "btn btn-info" })
+</p>
+<table class="table table-striped">
+    <tr>        
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            <p>Action</p>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            <a class="edit" href="@Url.Action("Edit", new { id = item.Id })">
+                <span class="glyphicon glyphicon-edit"></span> |
+            </a>
+            <a href="@Url.Action("Delete", new { id = item.Id })">
+                <span data-payment-id="@item.Id" class="glyphicon glyphicon-trash delete"></span>
+            </a>            
+        </td>
+    </tr>
+}
+
+</table>

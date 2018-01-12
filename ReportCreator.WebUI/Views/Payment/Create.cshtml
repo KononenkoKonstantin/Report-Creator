@@ -1,0 +1,51 @@
+﻿@model ReportCreator.WebUI.Models.PaymentFormViewModel
+
+@{
+    ViewBag.Title = Model.Header;
+}
+
+<h3>@Model.Header</h3>
+
+
+@using (Html.BeginForm("Create", "Payment", FormMethod.Post, new { id = "payment-form"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PaymentId)   
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ExpenditureId)
+        @Html.DropDownListFor(m => m.ExpenditureId, Model.Expenditures, "Select exdenditure number", new { @class = "form-control "})
+        @Html.ValidationMessageFor(m => m.ExpenditureId)        
+    </div> 
+    <div class="form-group">
+        @Html.LabelFor(m => m.PaymentDate)
+        @Html.EditorFor(m => m.PaymentDate,"", new { htmlAttributes = new { @class = "form-control default-date-picker" } })       
+        @Html.ValidationMessageFor(m => m.PaymentDate)           
+               
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Receiver)
+        @Html.TextBoxFor(m => m.Receiver, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Receiver)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PurposeOfPayment)
+        @Html.TextBoxFor(m => m.PurposeOfPayment, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PurposeOfPayment)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sum)
+        @Html.TextBoxFor(m => m.Sum, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Sum)
+    </div>
+        <button type="submit" class="btn btn-primary">Add</button>   
+}
+<br />
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+}

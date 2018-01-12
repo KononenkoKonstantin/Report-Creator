@@ -1,0 +1,45 @@
+﻿@model ReportCreator.WebUI.Models.ExpenditureFormViewModel
+
+@{
+    ViewBag.Title = Model.Header;
+}
+
+<h3>@Model.Header</h3>
+
+
+@using (Html.BeginForm(Model.Action, "Expenditure", FormMethod.Post, new { id = "expenditure-form" })) 
+{
+    @Html.AntiForgeryToken()    
+    @Html.HiddenFor(m => m.ExpenditureId)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Number)
+        @Html.TextBoxFor(m => m.Number, "",  new { @class = "form-control" } )
+        @Html.ValidationMessageFor(m => m.Number)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoryId)
+        @Html.DropDownListFor(m => m.CategoryId, Model.Categories, Model.Action == "Create" ? "Select category" : null, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CategoryId)
+    </div>
+    <button type="submit" class="btn btn-info data-edit">Save</button>
+}
+<br />
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+
+}
+
+
+   

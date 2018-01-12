@@ -1,0 +1,14 @@
+﻿@model ReportCreator.Domain.Entities.Payment
+
+{
+    <tr>
+        @Html.HiddenFor(x => x.PaymentId)
+        <td>@Model.PaymentDate.ToShortDateString()</td>
+        <td>@Model.Receiver</td>
+        <td>@Model.PurposeOfPayment</td>
+        <td>&euro; @Model.Cost.ToString("F")</td>
+        <td>@Html.ActionLink("Edit", "Edit", new { id = Model.PaymentId })</td>
+        <td>@Html.ActionLink("Delete", "Delete", new { id = Model.PaymentId }, new { @class = "mydelete", data_id = Model.PaymentId })</td>
+    </tr>
+}
+

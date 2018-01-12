@@ -1,0 +1,26 @@
+﻿@model ReportCreator.WebUI.Models.CategoryFormViewModel
+@{
+    ViewBag.Title = Model.Header;    
+}
+<h3>@Model.Header</h3>
+@using (Html.BeginForm(Model.Action, "Category", FormMethod.Post, new { id = "category-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)    
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control category-name", autofocus = true })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")    
+}
+
+
+
+

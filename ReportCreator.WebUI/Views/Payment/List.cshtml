@@ -1,0 +1,105 @@
+﻿@model ReportCreator.WebUI.Models.PaymentsListViewModel
+
+@{
+    ViewBag.Title = "Payments";
+}
+@section menu
+{
+   @{Html.RenderAction("Menu", "Nav");}
+}
+@section totalSum
+{
+   <h3><b>
+    Total sum
+    &euro;
+    @Html.DisplayFor(m => m.TotalSum)
+</b>
+</h3>
+}
+@Html.ActionLink("Add payment", "Create", "Payment", null,htmlAttributes: new { @class = "btn btn-info" })
+<br />
+<br />
+<table class="table table-striped">
+    <tr>  
+        <th></th>
+        <th>
+            <p>Expenditure</p>
+        </th>
+        <th>
+           <p>Payment date</p>
+        </th>
+        <th>
+            <p>Receiver</p>
+        </th>
+        <th>
+            <p>Purpose of payment</p>
+        </th>
+        <th>
+            <p>Sum</p>
+        </th>
+        <th>
+            <p>Action</p>
+        </th>
+        
+    </tr>
+   
+    @foreach (var item in Model.Payments)
+    {
+        <tr>
+            <td>
+                @Html.HiddenFor(m => item.PaymentId)
+            </td>
+            <td>                
+                @Html.DisplayName(item.Expenditure.Number)  
+            </td>
+            <td>
+               @Html.DisplayFor(m => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Receiver)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.PurposeOfPayment)
+            </td>
+            <td>
+                &euro;
+                @Html.DisplayFor(m => item.Sum)
+            </td>
+            <td>
+                <a class="edit" href="@Url.Action("Edit", new { id = item.PaymentId })">
+                    <span class="glyphicon glyphicon-edit"></span> |
+                </a>
+                <a href="#">
+                    <span data-payment-id="@item.PaymentId" class="glyphicon glyphicon-trash delete"></span>
+                </a>
+            </td>
+        </tr>
+    }
+    </table>
+    <div class="mypager">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+    </div>
+@section sum
+{
+    @if (Model.CurrentCategory != null)
+    {
+    <h3>
+         Total sum in this category <b>
+    &euro;
+    @Html.DisplayFor(m => m.CategorySum)
+</b>
+    </h3>
+        }
+    }
+
+@section scripts
+{
+    <script>
+        $(function () {
+            PaymentController.init();
+        });
+    </script>
+}
+
+
+

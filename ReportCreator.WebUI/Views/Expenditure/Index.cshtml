@@ -1,0 +1,59 @@
+﻿@model ReportCreator.WebUI.Models.ExpenditureListViewModel
+
+@{
+    ViewBag.Title = "Expenditures";   
+}
+@section menu
+{
+    @{Html.RenderAction("ExpenditureMenu", "Nav");}
+}
+<h3>Expenditures</h3>
+
+<p>
+    @Html.ActionLink("Create expenditure", "Create", null, htmlAttributes: new { @class = "btn btn-info" })
+</p>
+<br />
+<table class="table table-striped">
+    @Html.DisplayFor(m => m.CurrentCategory)
+    <tr>
+        <th></th>
+        <th>
+            <p>Category</p>
+        </th>
+        <th>
+            <p>Number</p>
+        </th>
+        <th>
+            <p>Name</p>
+        </th>
+        <th>
+            <p>Action</p>
+        </th>
+    </tr>
+
+@foreach (var item in Model.Expenditures) {
+    <tr>
+        <td>
+            @Html.HiddenFor(m => item.ExpenditureId)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.Name)
+        </td>        
+        <td>
+            <a class="edit" href="@Url.Action("Edit", new { id = item.ExpenditureId })">
+                <span class="glyphicon glyphicon-edit"></span> |
+            </a>
+            <a class="edit" href="@Url.Action("Delete", new { id = item.ExpenditureId })">
+                <span class="glyphicon glyphicon-trash delete"></span>
+            </a>            
+        </td>
+    </tr>
+}
+
+</table>
