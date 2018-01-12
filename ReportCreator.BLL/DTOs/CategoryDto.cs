@@ -11,7 +11,6 @@ namespace ReportCreator.BLL.DTOs
         {
             Expenditures = new List<ExpenditureDto>();
         }
-
         public void Update(string name)
         {
             Name = name;
