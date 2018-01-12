@@ -1,4 +1,4 @@
-# Report-Creator
+# ReportCreator
 
 ## Description
 
